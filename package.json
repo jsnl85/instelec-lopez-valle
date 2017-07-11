@@ -10,12 +10,12 @@
   },
   "devDependencies": {
     "bootstrap": "^3.3.7",
-    "browser-sync": "^2.13.0",
+    "browser-sync": "^2.18.12",
     "font-awesome": "^4.6.3",
     "gulp": "^3.9.1",
-    "gulp-clean-css": "^2.0.10",
-    "gulp-header": "^1.8.7",
-    "gulp-less": "^3.1.0",
+    "gulp-clean-css": "^2.4.0",
+    "gulp-header": "^1.8.8",
+    "gulp-less": "^3.3.2",
     "gulp-rename": "^1.2.2",
     "gulp-uglify": "^1.5.4",
     "jquery": "^1.11.3",
@@ -25,5 +25,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/BlackrockDigital/startbootstrap-creative.git"
+  },
+  "dependencies": {
+    "owl.carousel": "^2.2.0",
+    "vinyl-ftp": "^0.6.0"
   }
 }

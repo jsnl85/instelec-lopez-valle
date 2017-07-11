@@ -6,3 +6,4 @@ cpanel
 tmp
 logs
 indexed_files
+package-lock.json
