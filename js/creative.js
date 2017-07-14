@@ -27,7 +27,7 @@
 	if ($mainNav.length > 0) {
 		getHtml("sections/mainNav.html?v="+version, function(data) {
 			var $el = $('<div/>').html(data), html = $el.find("#mainNav").html();
-			//$mainNav.html(html);
+			$mainNav.html(html);
 			// 
 			// Highlight the top nav as scrolling occurs
 			if (jQuery.fn.scrollspy) {
