@@ -2,6 +2,7 @@
 
 // Task Scripts
 var gulp = require('gulp');
+var gutil = require('gulp-util');
 const _ = require('lodash');
 const fs = require('fs');
 var less = require('gulp-less');
@@ -56,7 +57,10 @@ gulp.task('configure', function() {
 // Compile LESS files from /less into /css
 gulp.task('less', function() {
     return gulp.src('less/creative.less')
-        .pipe(less())
+        .pipe(less().on('error', function(err){
+            gutil.log(err);
+            this.emit('end');
+        }))
         .pipe(header(banner, { pkg: pkg }))
         .pipe(gulp.dest('css'))
         .pipe(browserSync.reload({
@@ -124,7 +128,7 @@ function getFtpConnection(cfgFtp) {
         user: cfgFtp.username, //process.env.FTP_USER
         password: cfgFtp.password, //process.env.FTP_PWD
         parallel: 5,
-        log: console.log
+        log: gutil.log
     });
 }
 function getFtpFilesToUpload(cfgFtp) {
@@ -211,7 +215,7 @@ gulp.task('browserSync', function() {
 })
 
 // Dev task with browserSync
-gulp.task('dev', ['browserSync', 'configure', 'less', 'minify-css', 'minify-js'], function() {
+gulp.task('dev', ['browserSync', 'less', 'minify-css', 'minify-js'], function() {
     gulp.watch('less/*.less', ['less']);
     gulp.watch('css/*.css', ['minify-css']);
     gulp.watch('js/*.js', ['minify-js']);
