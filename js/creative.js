@@ -25,9 +25,9 @@
 	// Initialise the MainNav section
 	var $mainNav = $("#mainNav");
 	if ($mainNav.length > 0) {
-		getHtml("sections/mainNav.min.html?v="+version, function(data) {
+		getHtml("sections/mainNav.html?v="+version, function(data) {
 			var $el = $('<div/>').html(data), html = $el.find("#mainNav").html();
-			$mainNav.html(html);
+			//$mainNav.html(html);
 			// 
 			// Highlight the top nav as scrolling occurs
 			if (jQuery.fn.scrollspy) {
@@ -54,36 +54,36 @@
 	// Initialise the About section
 	var $about = $("#about");
 	if ($about.length > 0) {
-		getHtml("sections/about.min.html?v="+version, function(data) {
+		getHtml("sections/about.html?v="+version, function(data) {
 			var $el = $('<div/>').html(data), html = $el.find("#about").html();
-			$about.html(html);
+			//$about.html(html);
 		});
 	}
 
 	// Initialise the Services section
 	var $services = $("#services");
 	if ($services.length > 0) {
-		getHtml("sections/services.min.html?v="+version, function(data) {
+		getHtml("sections/services.html?v="+version, function(data) {
 			var $el = $('<div/>').html(data), html = $el.find("#services").html();
-			$services.html(html);
+			//$services.html(html);
 		});
 	}
 
 	// Initialise the Download section
 	var $download = $("#download");
 	if ($download.length > 0) {
-		getHtml("sections/download.min.html?v="+version, function(data) {
+		getHtml("sections/download.html?v="+version, function(data) {
 			var $el = $('<div/>').html(data), html = $el.find("#download").html();
-			$download.html(html);
+			//$download.html(html);
 		});
 	}
 
 	// Initialise the Testimonials section
 	var $recommendations = $("#recommendations");
 	if ($recommendations.length > 0) {
-		getHtml("sections/testimonials.min.html?v="+version, function(data) {
+		getHtml("sections/testimonials.html?v="+version, function(data) {
 			var $el = $('<div/>').html(data), html = $el.find("#recommendations").html();
-			$recommendations.html(html);
+			//$recommendations.html(html);
 			// 
 			// Initialise the Testimonials carousel
 			if (jQuery.fn.owlCarousel) {
@@ -115,9 +115,9 @@
 	// Initialise the Contacts section
 	var $contacts = $("#contacts");
 	if ($contacts.length > 0) {
-		getHtml("sections/contacts.min.html?v="+version, function(data) {
+		getHtml("sections/contacts.html?v="+version, function(data) {
 			var $el = $('<div/>').html(data), html = $el.find("#contacts").html();
-			$contacts.html(html);
+			//$contacts.html(html);
 		});
 	}
 
