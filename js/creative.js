@@ -122,11 +122,11 @@
 	}
 
 	// Initialise the Footer section
-	var $contacts = $("#footer");
-	if ($contacts.length > 0) {
+	var $footer = $("#footer");
+	if ($footer.length > 0) {
 		getHtml("/sections/footer.min.html?v="+version, function(data) {
 			var $el = $('<div/>').html(data), html = $el.find("#footer").html();
-			//$contacts.html(html);
+			$footer.html(html);
 		});
 	}
 
