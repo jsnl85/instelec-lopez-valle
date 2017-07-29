@@ -1,0 +1,49 @@
+# Temporary Redirect (http to https)
+#RewriteEngine On 
+#RewriteCond %{SERVER_PORT} 80 
+#RewriteRule ^(.*)$ https://insteleclopezvalle.es/$1 [R=302,L]
+
+# 1 YEAR
+ExpiresActive On
+<FilesMatch "\.(otf|ico|pdf|flv)$">
+Header set Cache-Control "max-age=29030400, public"
+ExpiresDefault "access plus 1 years"
+Header unset Last-Modified
+Header unset ETag
+SetOutputFilter DEFLATE
+</FilesMatch>
+
+# 1 MONTHS
+<FilesMatch "\.(jpg|jpeg|png|gif|swf)$">
+Header set Cache-Control "max-age=2419200, public"
+ExpiresDefault "access plus 1 month"
+SetOutputFilter DEFLATE
+</FilesMatch>
+
+<FilesMatch "\.(xml|txt|css|js)$">
+Header set Cache-Control "max-age=604800, public"
+ExpiresDefault "access plus 1 week"
+SetOutputFilter DEFLATE
+</FilesMatch>
+
+# 30 MIN
+<FilesMatch "sections\/\.(html|htm|php)$">
+SetOutputFilter DEFLATE
+</FilesMatch>
+
+# 30 MIN
+<FilesMatch "seo\/\.(json)$">
+SetOutputFilter DEFLATE
+</FilesMatch>
+
+#Alternate default index pages
+DirectoryIndex app_offline.htm index.min.html index.html
+
+# BEGIN GZIP
+<ifmodule mod_deflate.c>
+AddOutputFilterByType DEFLATE \
+	text/plain text/text text/html text/plain text/xml text/css \
+	application/json application/rss+xml application/x-javascript application/javascript \
+	font/otf font/ttf
+</ifmodule>
+# END GZIP
