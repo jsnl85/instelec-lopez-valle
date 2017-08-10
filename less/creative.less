@@ -9,7 +9,9 @@ body {
 }
 body {
 	.serif-font;
-	background-color: @theme-primary;
+	.window-loaded {
+		background-color: @theme-primary;
+	}
 }
 
 hr {
@@ -468,6 +470,12 @@ header {
 		margin: 0 auto 20px;
 	}
 }
+
+.help-block {
+	&.text-danger {color: red;}
+	ul {list-style:none;padding:0;}
+}
+
 
 // Bootstrap Overrides
 .text-primary {

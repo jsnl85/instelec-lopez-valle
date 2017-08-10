@@ -10,6 +10,8 @@ body {
 }
 body {
   font-family: 'Avenir-Book', 'Merriweather', 'Helvetica Neue', Arial, sans-serif;
+}
+body .window-loaded {
   background-color: #d0191e;
 }
 hr {
@@ -451,6 +453,13 @@ header .header-content .header-content-inner p {
 }
 .call-to-action h2 {
   margin: 0 auto 20px;
+}
+.help-block.text-danger {
+  color: red;
+}
+.help-block ul {
+  list-style: none;
+  padding: 0;
 }
 .text-primary {
   color: #d0191e;

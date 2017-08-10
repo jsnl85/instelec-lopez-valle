@@ -145,6 +145,7 @@ function getFtpFilesToUpload(cfgFtp) {
         'img/**',
         'js/**',
         '!less',
+        'mail/**',
         '!node_modules',
         'proyectos/**',
         'sections/**',

@@ -112,6 +112,82 @@
 		});
 	}
 
+	function initContactForm($el) {
+		var closeBtnHtml = "<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>";
+		$el.find("input,textarea").jqBootstrapValidation({
+			/*feedbackIcons: {
+				valid: 'glyphicon glyphicon-ok',
+				invalid: 'glyphicon glyphicon-remove',
+				validating: 'glyphicon glyphicon-refresh'
+			},*/
+			preventSubmit: true,
+			submitError: function($form, event, errors) {
+				// additional error messages or events
+			},
+			submitSuccess: function($form, event) {
+				// Prevent spam click and default submit behaviour
+				$el.find("#btnSubmit").attr("disabled", true);
+				event.preventDefault();
+				// 
+				// get values from FORM
+				var name = $el.find("input#name").val();
+				var email = $el.find("input#email").val();
+				var phone = $el.find("input#phone").val();
+				var message = $el.find("textarea#message").val();
+				var firstName = name; // For Success/Failure Message
+				// Check for white space in name for Success/Fail message
+				if (firstName.indexOf(' ') >= 0) {
+					firstName = name.split(' ').slice(0, -1).join(' ');
+				}
+				$.ajax({
+					url: "/mail/contact_me.php",
+					type: "POST",
+					data: {
+						name: name,
+						phone: phone,
+						email: email,
+						message: message
+					},
+					cache: false,
+					success: function() {
+						// Enable button & show success message
+						$el.find("#btnSubmit").attr("disabled", false);
+						$el.find('#success').html("<div class='alert alert-success'>"+closeBtnHtml+"<strong>Tu mensaje ha sido enviado.</strong></div>");
+						// 
+						// clear all fields
+						$el.trigger("reset");
+					},
+					error: function() {
+						// Fail message
+						$el.find('#success').html("<div class='alert alert-danger'>"+closeBtnHtml+"<strong>Lo sentimos "+ firstName +", parece que el servidor de correo no está respondiendo. Por favor, inténte de nuevo más tarde!</div>");
+						// 
+						// clear all fields
+						$el.trigger("reset");
+					},
+				});
+			},
+			filter: function() {
+				return $(this).is(":visible");
+			},
+		});
+
+		$el.find("a[data-toggle=\"tab\"]").click(function(e) {
+			e.preventDefault();
+			$(this).tab("show");
+		});
+
+		// When clicking on Full hide fail/success boxes
+		$el.find('#name').focus(function() {
+			$el.find('#success').html('');
+		});
+	}
+
+	// Initialise the Contact Form section
+	var $contactForm = $("#contactForm");
+	if ($contactForm.length > 0) {
+		initContactForm($contactForm);
+	}
+
 	// Initialise the Contacts section
 	var $contacts = $("#contacts");
 	if ($contacts.length > 0) {
