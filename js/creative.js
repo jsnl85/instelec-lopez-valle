@@ -25,7 +25,7 @@
 	// Initialise the MainNav section
 	var $mainNav = $(".navbar.navbar-default"); // $("#mainNav")
 	if ($mainNav.length > 0) {
-		getHtml("/sections/mainNav.html?v="+version, function(data) {
+		getHtml("/sections/mainNav.min.html?v="+version, function(data) {
 			var $el = $('<div/>').html(data), html = $el.find("#mainNav").html();
 			$mainNav.html(html);
 			// 
