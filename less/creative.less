@@ -132,7 +132,6 @@ aside {
 }
 
 // Navigation
-
 .navbar-default {
 	margin-bottom: 0;
 	overflow: hidden;
@@ -181,11 +180,17 @@ aside {
 			color: darken(@white, 10%);
 		}
 	  }
-	   .navbar-toggle {
+	  .navbar-toggle {
 		font-weight: 700;
 		font-size: 12px;
 		color: @white-darker;
 		text-transform: uppercase;
+		.icon-bar {
+			background-color: darken(@white, 10%);
+		}
+	  }
+	  .navbar-toggle:focus,.navbar-toggle:hover {
+	    background-color: darken(@theme-primary, 5%);
 	  }
 	}
 
