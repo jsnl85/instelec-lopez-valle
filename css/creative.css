@@ -10,6 +10,7 @@ body {
 }
 body {
   font-family: 'Avenir-Book', 'Merriweather', 'Helvetica Neue', Arial, sans-serif;
+  background-color: #d0191e;
 }
 hr {
   border-color: #d0191e;
@@ -347,6 +348,23 @@ header .header-content .header-content-inner p {
     margin-right: auto;
   }
 }
+.section-profile {
+  position: relative;
+  width: 100%;
+  text-align: center;
+}
+.section-profile .img-responsive {
+  margin: 0 auto 20px;
+}
+.section-profile .header-content {
+  position: relative;
+  text-align: center;
+  padding: 0 0 10px 0;
+  width: 100%;
+}
+.section-profile .header-content .header-content-inner {
+  padding: 5px 5px;
+}
 .section-heading {
   margin-top: 0;
 }
@@ -358,6 +376,14 @@ header .header-content .header-content-inner p {
   .service-box {
     margin: 20px auto 0;
   }
+}
+.service-box img {
+  width: 150px;
+  height: 150px;
+}
+.service-box img.large-image {
+  width: 293px;
+  height: 293px;
 }
 .service-box p {
   margin-bottom: 0;

@@ -9,6 +9,7 @@ body {
 }
 body {
 	.serif-font;
+	background-color: @theme-primary;
 }
 
 hr {
@@ -356,6 +357,25 @@ header {
 }
 
 // Sections
+// Homepage Header
+.section-profile {
+	position: relative;
+	width: 100%;
+	text-align: center;
+	.img-responsive {
+		margin: 0 auto 20px;
+	}
+	.header-content {
+		position: relative;
+		text-align: center;
+		padding: 0 0 10px 0;
+		width: 100%;
+		.header-content-inner {
+			padding: 5px 5px;
+		}
+	}
+}
+
 .section-heading {
 	margin-top: 0;
 }
@@ -365,6 +385,14 @@ header {
 	margin: 50px auto 0;
 	@media (min-width: 992px) {
 		margin: 20px auto 0;
+	}
+	img {
+		width: 150px;
+		height: 150px;
+	}
+	img.large-image {
+		width: 293px;
+		height: 293px;
 	}
 	p {
 		margin-bottom: 0;
