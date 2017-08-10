@@ -34,7 +34,7 @@ a:focus {
 }
 .bg-primary a:hover,
 .bg-primary a:focus {
-  color: #a21417;
+  color: #c4c4c4;
 }
 h1,
 h2,
@@ -290,8 +290,11 @@ header .img-responsive {
 header .header-content {
   position: relative;
   text-align: center;
-  padding: 100px 15px 100px;
+  padding: 0 0 200px 0;
   width: 100%;
+}
+header .header-content .header-content-inner {
+  padding: 50px 15px;
 }
 header .header-content .header-content-inner h1 {
   font-weight: 700;
@@ -300,8 +303,16 @@ header .header-content .header-content-inner h1 {
   margin-bottom: 0;
   font-size: 30px;
 }
+header .header-content .header-content-inner h2 {
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+header .header-content .header-content-inner h1 + h2 {
+  margin-top: 10px;
+}
 header .header-content .header-content-inner hr {
-  margin: 30px auto;
+  margin: 10px auto;
 }
 header .header-content .header-content-inner p {
   font-weight: 300;
@@ -313,13 +324,8 @@ header .header-content .header-content-inner p {
   header {
     min-height: 100%;
   }
-  header .header-content {
-    padding: 100px 15px;
-  }
   header .header-content .header-content-inner {
-    max-width: 1000px;
-    margin-left: auto;
-    margin-right: auto;
+    padding: 100px 15px;
   }
   header .header-content .header-content-inner h1 {
     font-size: 50px;

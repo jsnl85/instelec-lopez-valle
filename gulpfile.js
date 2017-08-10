@@ -135,6 +135,7 @@ function getFtpFilesToUpload(cfgFtp) {
     //var localFilesGlob = [ "./**/*" ];
     var localFilesGlob = [
         '*',
+        'contactos/**',
         'css/**',
         '!design',
         'favicon/**',
@@ -142,8 +143,11 @@ function getFtpFilesToUpload(cfgFtp) {
         'js/**',
         '!less',
         '!node_modules',
+        'proyectos/**',
         'sections/**',
         'seo/**',
+        'servicios/**',
+        'sobre-nosotros/**',
         'vendor/**',
         '!.gitignore',
         '!config*.json',

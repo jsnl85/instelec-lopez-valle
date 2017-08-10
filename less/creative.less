@@ -34,7 +34,7 @@ a {
 		color: @white-dark;
 		&:hover,
 		&:focus {
-			color: darken(@theme-primary, 10%);
+			color: darken(@white-darker, 10%);
 		}
 	}
 }
@@ -300,9 +300,10 @@ header {
 	.header-content {
 		position: relative;
 		text-align: center;
-		padding: 100px 15px 100px;
+		padding: 0 0 200px 0;
 		width: 100%;
 		.header-content-inner {
+			padding: 50px 15px;
 			h1 {
 				font-weight: 700;
 				text-transform: uppercase;
@@ -310,8 +311,14 @@ header {
 				margin-bottom: 0;
 				font-size: 30px;
 			}
+			h2 {
+				font-size: 16px;
+				font-weight: bold;
+				text-transform: uppercase;
+			}
+			h1 + h2 { margin-top: 10px; }
 			hr {
-				margin: 30px auto;
+				margin: 10px auto;
 			}
 			p {
 				font-weight: 300;
@@ -324,11 +331,8 @@ header {
 	@media (min-width: 768px) {
 		min-height: 100%;
 		.header-content {
-			padding: 100px 15px;
 			.header-content-inner {
-				max-width: 1000px;
-				margin-left: auto;
-				margin-right: auto;
+				padding: 100px 15px;
 				h1 {
 					font-size: 50px;
 					font-weight: lighter;
