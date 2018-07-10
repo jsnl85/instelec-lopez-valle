@@ -51,67 +51,6 @@
 		});
 	}
 
-	// Initialise the About section
-	var $about = $("#about");
-	if ($about.length > 0) {
-		getHtml("/sections/about.html?v="+version, function(data) {
-			var $el = $('<div/>').html(data), html = $el.find("#about").html();
-			//$about.html(html);
-		});
-	}
-
-	// Initialise the Services section
-	var $services = $("#services");
-	if ($services.length > 0) {
-		getHtml("/sections/services.html?v="+version, function(data) {
-			var $el = $('<div/>').html(data), html = $el.find("#services").html();
-			//$services.html(html);
-		});
-	}
-
-	// Initialise the Download section
-	var $download = $("#download");
-	if ($download.length > 0) {
-		getHtml("/sections/download.html?v="+version, function(data) {
-			var $el = $('<div/>').html(data), html = $el.find("#download").html();
-			//$download.html(html);
-		});
-	}
-
-	// Initialise the Testimonials section
-	var $recommendations = $("#recommendations");
-	if ($recommendations.length > 0) {
-		getHtml("/sections/testimonials.html?v="+version, function(data) {
-			var $el = $('<div/>').html(data), html = $el.find("#recommendations").html();
-			//$recommendations.html(html);
-			// 
-			// Initialise the Testimonials carousel
-			if (jQuery.fn.owlCarousel) {
-				$recommendations.find(".testimonials-carousel, .mockup-carousel").owlCarousel({
-					items: 1,
-					//singleItem: true,
-					autoWidth: false,
-					autoHeight: false,
-					responsive: true,
-					loop: true,
-					addClassActive: true,
-					slideSpeed: 300,
-					paginationSpeed: 400,
-					autoPlay: true,
-					stopOnHover: true,
-					pagination: false,
-					navigation: true,
-					lazyLoad: true,
-					navigationText: [
-						"<i class='fa fa-angle-left'></i>",
-						"<i class='fa fa-angle-right'></i>"
-					],
-					transitionStyle: "backSlide"
-				});
-			}
-		});
-	}
-
 	function initContactForm($el) {
 		var closeBtnHtml = "<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>";
 		$el.find("input,textarea").jqBootstrapValidation({
@@ -186,15 +125,6 @@
 	var $contactForm = $("#contactForm");
 	if ($contactForm.length > 0) {
 		initContactForm($contactForm);
-	}
-
-	// Initialise the Contacts section
-	var $contacts = $("#contacts");
-	if ($contacts.length > 0) {
-		getHtml("/sections/contacts.html?v="+version, function(data) {
-			var $el = $('<div/>').html(data), html = $el.find("#contacts").html();
-			//$contacts.html(html);
-		});
 	}
 
 	// Initialise the Footer section
