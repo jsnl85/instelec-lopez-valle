@@ -1,8 +1,9 @@
-// npm install gulp lodash fs gulp-less gulp-header gulp-clean-css gulp-rename webpack-stream gulp-uglify gulp-javascript-obfuscator browser-sync owl.carousel vinyl-ftp
+// npm install gulp lodash fs gulp-less gulp-header gulp-clean gulp-clean-css gulp-rename webpack-stream gulp-uglify gulp-javascript-obfuscator browser-sync owl.carousel vinyl-ftp
 
 // Task Scripts
 var gulp = require('gulp');
 var gutil = require('gulp-util');
+var clean = require('gulp-clean');
 const _ = require('lodash');
 const fs = require('fs');
 var less = require('gulp-less');
@@ -34,7 +35,7 @@ var banner = ['/*!\n',
 ].join('');
 
 // Create the Configuration.json file
-gulp.task('configure', function() {
+gulp.task('configure', function(done) {
     var cfgDefaults = require('./configuration.defaults.json');
     // 
     // ensure configuration.json file exists (i.e. it is in .gitignore)
@@ -52,6 +53,8 @@ gulp.task('configure', function() {
         }
     }
     catch (err) { console.log('Error writing Configuration.json:' + err.message); }
+    // 
+    done();
 });
 
 // Compile LESS files from /less into /css
@@ -66,10 +69,11 @@ gulp.task('less', function() {
         .pipe(browserSync.reload({
             stream: true
         }))
+    ;
 });
 
 // Minify compiled CSS
-gulp.task('minify-css', ['less'], function() {
+gulp.task('minify-css', gulp.series('less', function() {
     return gulp.src('css/creative.css')
         .pipe(cleanCSS({ compatibility: 'ie8' }))
         .pipe(rename({ suffix: '.min' }))
@@ -77,7 +81,8 @@ gulp.task('minify-css', ['less'], function() {
         .pipe(browserSync.reload({
             stream: true
         }))
-});
+    ;
+}));
 
 // Minify JS
 gulp.task('minify-js', function() {
@@ -89,10 +94,18 @@ gulp.task('minify-js', function() {
         .pipe(browserSync.reload({
             stream: true
         }))
+    ;
+});
+
+// Clean
+gulp.task('clean', function() {
+    return gulp.src('tmp/*', {read: false})
+        .pipe(clean())
+    ;
 });
 
 // Copy vendor libraries from /node_modules into /vendor
-gulp.task('copy', function() {
+gulp.task('copy', function(done) {
     gulp.src(['node_modules/bootstrap/dist/**/*', '!**/npm.js', '!**/bootstrap-theme.*', '!**/*.map'])
         .pipe(gulp.dest('vendor/bootstrap'))
 
@@ -117,7 +130,9 @@ gulp.task('copy', function() {
 
     //gulp.src(['node_modules/owl.carousel/dist/*.js', 'node_modules/owl.carousel/dist/assets/*'])
     //    .pipe(gulp.dest('vendor/owl.carousel'))
-})
+
+    done();
+});
 
 // FTP Configuration
 // helper function to build an FTP connection based on our configuration
@@ -171,7 +186,7 @@ function getFtpFilesToUpload(cfgFtp) {
  *
  * Usage: `FTP_USER=someuser FTP_PWD=somepwd gulp ftp-deploy`
  */
-gulp.task('ftp-deploy', ['configure'], function() {
+gulp.task('ftp-deploy', gulp.series('configure', function() {
     var cfg = require('./configuration.json');
     var cfgFtp = cfg.ftp; //(cfg||{}).ftp||((cfg||{}).ftp||[])[0]||{};
     // 
@@ -182,7 +197,7 @@ gulp.task('ftp-deploy', ['configure'], function() {
         .pipe( conn.newer( cfgFtp.remoteFolder ) ) // only upload newer files 
         .pipe( conn.dest( cfgFtp.remoteFolder ) )
     ;
-});
+}));
 
 /**
  * Watch deploy task.
@@ -190,44 +205,49 @@ gulp.task('ftp-deploy', ['configure'], function() {
  *
  * Usage: `FTP_USER=someuser FTP_PWD=somepwd gulp ftp-deploy-watch`
  */
-gulp.task('ftp-deploy-watch', ['configure'], function() {
+gulp.task('ftp-deploy-watch', gulp.series('configure', function() {
     var cfg = require('./configuration.json');
     var cfgFtp = cfg.ftp; //(cfg||{}).ftp||((cfg||{}).ftp||[])[0]||{};
     // 
     var conn = getFtpConnection(cfgFtp);
     var localFilesGlob = getFtpFilesToUpload(cfgFtp);
     // 
-    gulp.watch(localFilesGlob)
+    return gulp.watch(localFilesGlob)
       .on('change', function(event) {
         console.log('Changes detected! Uploading file "' + event.path + '", ' + event.type);
-
+        // 
         return gulp.src( [event.path], { base: '.', buffer: false } )
           .pipe( conn.newer( cfgFtp.remoteFolder ) ) // only upload newer files 
           .pipe( conn.dest( cfgFtp.remoteFolder ) )
         ;
       })
     ;
-});
+}));
 
+// Build
+gulp.task('build', gulp.series('configure', 'less', 'minify-css', 'minify-js', 'copy'));
 
 // Run everything
-gulp.task('default', ['configure', 'less', 'minify-css', 'minify-js', 'copy']);
+gulp.task('default', gulp.series('clean', 'build'));
 
 // Configure the browserSync task
 gulp.task('browserSync', function() {
-    browserSync.init({
+    return browserSync.init({
         server: {
-            baseDir: ''
-        },
-    })
+            baseDir: "",
+            index: "index.html"
+        }
+    });
 })
 
 // Dev task with browserSync
-gulp.task('dev', ['browserSync', 'less', 'minify-css', 'minify-js'], function() {
+gulp.task('dev', gulp.series('browserSync', 'less', 'minify-css', 'minify-js', function(done) {
     gulp.watch('less/*.less', ['less']);
     gulp.watch('css/*.css', ['minify-css']);
     gulp.watch('js/*.js', ['minify-js']);
     // Reloads the browser whenever HTML or JS files change
     gulp.watch('*.html', browserSync.reload);
     gulp.watch('js/**/*.js', browserSync.reload);
-});
+    // 
+    done();
+}));
