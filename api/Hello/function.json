@@ -1,0 +1,19 @@
+{
+  "generatedBy": "Microsoft.NET.Sdk.Functions-1.0.31",
+  "configurationSource": "attributes",
+  "bindings": [
+    {
+      "type": "httpTrigger",
+      "direction": "in",
+      "methods": [
+        "get",
+        "post"
+      ],
+      "authLevel": "anonymous",
+      "name": "req"
+    }
+  ],
+  "disabled": false,
+  "scriptFile": "../bin/InstelecLopezValle.dll",
+  "entryPoint": "InstelecLopezValle.Hello.Run"
+}
