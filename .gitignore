@@ -10,3 +10,5 @@ configuration.json
 add-ins/*/src/packages
 add-ins/*/src/*/Web.*.config
 *.pubxml*
+dist
+release

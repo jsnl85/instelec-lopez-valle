@@ -99,7 +99,7 @@ gulp.task('minify-js', function() {
 
 // Clean
 gulp.task('clean', function() {
-    return gulp.src('tmp/*', {read: false})
+    return gulp.src(['tmp/*','dist'], {read: false})
         .pipe(clean())
     ;
 });
@@ -133,6 +133,36 @@ gulp.task('copy-vendor', function(done) {
 
     done();
 });
+
+// Copy final assets to the release folder 'dist' (published to Azure Static Web)
+gulp.task('copy-dist', function(done) {
+    gulp.src([
+        'clientes',
+        'contactos',
+        'css',
+        'favicon',
+        'img',
+        'js',
+        'proyectos',
+        'sections',
+        'seo',
+        'servicios',
+        'sobre-nosotros',
+        'vendor',
+        '*.htm',
+        '*.html',
+        'favicon.ico',
+        'humans.txt',
+        'robots.txt',
+    ])
+    .pipe(gulp.dest('dist'))
+
+    //gulp.src(['node_modules/owl.carousel/dist/*.js', 'node_modules/owl.carousel/dist/assets/*'])
+    //    .pipe(gulp.dest('vendor/owl.carousel'))
+
+    done();
+});
+
 
 // // FTP Configuration
 // // helper function to build an FTP connection based on our configuration
@@ -225,7 +255,7 @@ gulp.task('copy-vendor', function(done) {
 // }));
 
 // Build
-gulp.task('build', gulp.series('configure', 'less', 'minify-css', 'minify-js'));//, 'copy-vendor'
+gulp.task('build', gulp.series('configure', 'less', 'minify-css', 'minify-js', 'copy-dist'));//, 'copy-vendor'
 
 // Run everything
 gulp.task('default', gulp.series('clean', 'build'));
