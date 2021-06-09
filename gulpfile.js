@@ -120,6 +120,8 @@ gulp.task('copy-vendor', function(done) {
 
     gulp.src([
             'node_modules/font-awesome/**',
+            '!node_modules/font-awesome/**/*.less',
+            '!node_modules/font-awesome/**/*.scss',
             '!node_modules/font-awesome/**/*.map',
             '!node_modules/font-awesome/.npmignore',
             '!node_modules/font-awesome/*.txt',
@@ -150,6 +152,7 @@ gulp.task('copy-dist', function(done) {
         'sobre-nosotros',
         'vendor',
         '*.htm',
+        '!app_offline.htm',
         '*.html',
         'favicon.ico',
         'humans.txt',
