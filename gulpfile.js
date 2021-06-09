@@ -255,7 +255,7 @@ gulp.task('copy-dist', function(done) {
 // }));
 
 // Build
-gulp.task('build', gulp.series('configure', 'less', 'minify-css', 'minify-js', 'copy-dist'));//, 'copy-vendor'
+gulp.task('build', gulp.series('configure', 'less', 'minify-css', 'minify-js', 'copy-vendor', 'copy-dist'));
 
 // Run everything
 gulp.task('default', gulp.series('clean', 'build'));
