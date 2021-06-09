@@ -99,8 +99,15 @@ gulp.task('minify-js', function() {
 
 // Clean
 gulp.task('clean', function() {
-    return gulp.src(['tmp/*','dist'], {read: false})
-        .pipe(clean())
+    return gulp.src([
+        'tmp/*',
+        'dist'
+    ],
+    {
+        read:false,
+        allowEmpty:true
+    })
+    .pipe(clean())
     ;
 });
 
@@ -137,8 +144,8 @@ gulp.task('copy-vendor', function(done) {
 });
 
 // Copy final assets to the release folder 'dist' (published to Azure Static Web)
-gulp.task('copy-dist', function(done) {
-    gulp.src([
+gulp.task('copy-dist', function() {
+    return gulp.src([
         'clientes',
         'contactos',
         'css',
@@ -157,13 +164,8 @@ gulp.task('copy-dist', function(done) {
         'favicon.ico',
         'humans.txt',
         'robots.txt',
-    ])
-    .pipe(gulp.dest('dist'))
-
-    //gulp.src(['node_modules/owl.carousel/dist/*.js', 'node_modules/owl.carousel/dist/assets/*'])
-    //    .pipe(gulp.dest('vendor/owl.carousel'))
-
-    done();
+    ],{base:'./',allowEmpty:true,read:true})
+    .pipe(gulp.dest('dist'));
 });
 
 
@@ -258,7 +260,7 @@ gulp.task('copy-dist', function(done) {
 // }));
 
 // Build
-gulp.task('build', gulp.series('configure', 'less', 'minify-css', 'minify-js', 'copy-vendor', 'copy-dist'));
+gulp.task('build', gulp.series('clean', 'configure', 'less', 'minify-css', 'minify-js', 'copy-vendor', 'copy-dist'));
 
 // Run everything
 gulp.task('default', gulp.series('clean', 'build'));
