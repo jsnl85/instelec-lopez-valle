@@ -13,8 +13,8 @@ var cleanCSS = require('gulp-clean-css');
 var rename = require("gulp-rename");
 var webpack = require('webpack-stream');
 var uglify = require('gulp-uglify');
-const obfuscator = require('gulp-javascript-obfuscator');
-const vinylFtp = require('vinyl-ftp');
+//const obfuscator = require('gulp-javascript-obfuscator');
+//const vinylFtp = require('vinyl-ftp');
 // Styles
 //const sass = require('gulp-sass');
 //const bless = require('gulp-bless');
@@ -134,95 +134,95 @@ gulp.task('copy', function(done) {
     done();
 });
 
-// FTP Configuration
-// helper function to build an FTP connection based on our configuration
-function getFtpConnection(cfgFtp) {
-    return vinylFtp.create({
-        host: cfgFtp.host,
-        port: cfgFtp.port,
-        user: cfgFtp.username, //process.env.FTP_USER
-        password: cfgFtp.password, //process.env.FTP_PWD
-        parallel: 5,
-        log: gutil.log
-    });
-}
-function getFtpFilesToUpload(cfgFtp) {
-    //var localFilesGlob = [ "./**/*" ];
-    var localFilesGlob = [
-        '*',
-        '.htaccess',
-        '!app_offline.htm',
-        'contactos/**',
-        'clientes/**',
-        'css/**',
-        '!design',
-        'favicon/**',
-        'img/**',
-        'js/**',
-        '!less',
-        'mail/**',
-        '!node_modules',
-        'proyectos/**',
-        'sections/**',
-        'seo/**',
-        'servicios/**',
-        'sobre-nosotros/**',
-        'vendor/**',
-        '!.gitignore',
-        '!config*.json',
-        '!package*.json',
-        '!gulpfile.js',
-        '!license',
-        '!readme*',
-        '!settings.js'
-        //'!web.config'
-    ];
-    return localFilesGlob;
-}
+// // FTP Configuration
+// // helper function to build an FTP connection based on our configuration
+// function getFtpConnection(cfgFtp) {
+//     return vinylFtp.create({
+//         host: cfgFtp.host,
+//         port: cfgFtp.port,
+//         user: cfgFtp.username, //process.env.FTP_USER
+//         password: cfgFtp.password, //process.env.FTP_PWD
+//         parallel: 5,
+//         log: gutil.log
+//     });
+// }
+// function getFtpFilesToUpload(cfgFtp) {
+//     //var localFilesGlob = [ "./**/*" ];
+//     var localFilesGlob = [
+//         '*',
+//         '.htaccess',
+//         '!app_offline.htm',
+//         'contactos/**',
+//         'clientes/**',
+//         'css/**',
+//         '!design',
+//         'favicon/**',
+//         'img/**',
+//         'js/**',
+//         '!less',
+//         'mail/**',
+//         '!node_modules',
+//         'proyectos/**',
+//         'sections/**',
+//         'seo/**',
+//         'servicios/**',
+//         'sobre-nosotros/**',
+//         'vendor/**',
+//         '!.gitignore',
+//         '!config*.json',
+//         '!package*.json',
+//         '!gulpfile.js',
+//         '!license',
+//         '!readme*',
+//         '!settings.js'
+//         //'!web.config'
+//     ];
+//     return localFilesGlob;
+// }
 
-/**
- * Deploy task.
- * Copies the new files to the server
- *
- * Usage: `FTP_USER=someuser FTP_PWD=somepwd gulp ftp-deploy`
- */
-gulp.task('ftp-deploy', gulp.series('configure', function() {
-    var cfg = require('./configuration.json');
-    var cfgFtp = cfg.ftp; //(cfg||{}).ftp||((cfg||{}).ftp||[])[0]||{};
-    // 
-    var conn = getFtpConnection(cfgFtp);
-    var localFilesGlob = getFtpFilesToUpload(cfgFtp);
-    // 
-    return gulp.src(localFilesGlob, { base: '.', buffer: false })
-        .pipe( conn.newer( cfgFtp.remoteFolder ) ) // only upload newer files 
-        .pipe( conn.dest( cfgFtp.remoteFolder ) )
-    ;
-}));
+// /**
+//  * Deploy task.
+//  * Copies the new files to the server
+//  *
+//  * Usage: `FTP_USER=someuser FTP_PWD=somepwd gulp ftp-deploy`
+//  */
+// gulp.task('ftp-deploy', gulp.series('configure', function() {
+//     var cfg = require('./configuration.json');
+//     var cfgFtp = cfg.ftp; //(cfg||{}).ftp||((cfg||{}).ftp||[])[0]||{};
+//     // 
+//     var conn = getFtpConnection(cfgFtp);
+//     var localFilesGlob = getFtpFilesToUpload(cfgFtp);
+//     // 
+//     return gulp.src(localFilesGlob, { base: '.', buffer: false })
+//         .pipe( conn.newer( cfgFtp.remoteFolder ) ) // only upload newer files 
+//         .pipe( conn.dest( cfgFtp.remoteFolder ) )
+//     ;
+// }));
 
-/**
- * Watch deploy task.
- * Watches the local copy for changes and copies the new files to the server whenever an update is detected
- *
- * Usage: `FTP_USER=someuser FTP_PWD=somepwd gulp ftp-deploy-watch`
- */
-gulp.task('ftp-deploy-watch', gulp.series('configure', function() {
-    var cfg = require('./configuration.json');
-    var cfgFtp = cfg.ftp; //(cfg||{}).ftp||((cfg||{}).ftp||[])[0]||{};
-    // 
-    var conn = getFtpConnection(cfgFtp);
-    var localFilesGlob = getFtpFilesToUpload(cfgFtp);
-    // 
-    return gulp.watch(localFilesGlob)
-      .on('change', function(event) {
-        console.log('Changes detected! Uploading file "' + event.path + '", ' + event.type);
-        // 
-        return gulp.src( [event.path], { base: '.', buffer: false } )
-          .pipe( conn.newer( cfgFtp.remoteFolder ) ) // only upload newer files 
-          .pipe( conn.dest( cfgFtp.remoteFolder ) )
-        ;
-      })
-    ;
-}));
+// /**
+//  * Watch deploy task.
+//  * Watches the local copy for changes and copies the new files to the server whenever an update is detected
+//  *
+//  * Usage: `FTP_USER=someuser FTP_PWD=somepwd gulp ftp-deploy-watch`
+//  */
+// gulp.task('ftp-deploy-watch', gulp.series('configure', function() {
+//     var cfg = require('./configuration.json');
+//     var cfgFtp = cfg.ftp; //(cfg||{}).ftp||((cfg||{}).ftp||[])[0]||{};
+//     // 
+//     var conn = getFtpConnection(cfgFtp);
+//     var localFilesGlob = getFtpFilesToUpload(cfgFtp);
+//     // 
+//     return gulp.watch(localFilesGlob)
+//       .on('change', function(event) {
+//         console.log('Changes detected! Uploading file "' + event.path + '", ' + event.type);
+//         // 
+//         return gulp.src( [event.path], { base: '.', buffer: false } )
+//           .pipe( conn.newer( cfgFtp.remoteFolder ) ) // only upload newer files 
+//           .pipe( conn.dest( cfgFtp.remoteFolder ) )
+//         ;
+//       })
+//     ;
+// }));
 
 // Build
 gulp.task('build', gulp.series('configure', 'less', 'minify-css', 'minify-js', 'copy'));
