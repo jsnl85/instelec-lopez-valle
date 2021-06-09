@@ -105,7 +105,7 @@ gulp.task('clean', function() {
 });
 
 // Copy vendor libraries from /node_modules into /vendor
-gulp.task('copy', function(done) {
+gulp.task('copy-vendor', function(done) {
     gulp.src(['node_modules/bootstrap/dist/**/*', '!**/npm.js', '!**/bootstrap-theme.*', '!**/*.map'])
         .pipe(gulp.dest('vendor/bootstrap'))
 
@@ -225,7 +225,7 @@ gulp.task('copy', function(done) {
 // }));
 
 // Build
-gulp.task('build', gulp.series('configure', 'less', 'minify-css', 'minify-js', 'copy'));
+gulp.task('build', gulp.series('configure', 'less', 'minify-css', 'minify-js'));//, 'copy-vendor'
 
 // Run everything
 gulp.task('default', gulp.series('clean', 'build'));
