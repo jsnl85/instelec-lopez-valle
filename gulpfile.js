@@ -143,29 +143,51 @@ gulp.task('copy-vendor', function(done) {
     done();
 });
 
+function getFilesToUpload() {
+    //var localFiles = [ "./**/*" ];
+    var localFiles = [
+        'api/**',
+        'contactos/**',
+        'clientes/**',
+        'css/**',
+        '!design',
+        'favicon/**',
+        'img/**',
+        'js/**',
+        '!less',
+        'mail/**',
+        '!node_modules',
+        'proyectos/**',
+        'sections/**',
+        'seo/**',
+        'servicios/**',
+        'sobre-nosotros/**',
+        'vendor/**',
+        '!.gitignore',
+        '.htaccess',
+        '!app_offline.htm',
+        '!config*.json',
+        'favicon.ico',
+        '!gulpfile.js',
+        'humans.txt',
+        'index.html',
+        '!license',
+        '!package*.json',
+        '!readme*',
+        '!settings.js',
+        'signature.html',
+        'sitemap_location.xml',
+        '!web.config'
+    ];
+    return localFiles;
+}
+
 // Copy final assets to the release folder 'dist' (published to Azure Static Web)
 gulp.task('copy-dist', function() {
-    return gulp.src([
-        'clientes',
-        'contactos',
-        'css',
-        'favicon',
-        'img',
-        'js',
-        'proyectos',
-        'sections',
-        'seo',
-        'servicios',
-        'sobre-nosotros',
-        'vendor',
-        '*.htm',
-        '!app_offline.htm',
-        '*.html',
-        'favicon.ico',
-        'humans.txt',
-        'robots.txt',
-    ],{base:'./',allowEmpty:true,read:true})
-    .pipe(gulp.dest('dist'));
+    var localFiles = getFilesToUpload();
+    return gulp.src(localFiles, { base: '.', buffer: false })
+        .pipe( gulp.dest('dist') )
+    ;
 });
 
 
@@ -181,40 +203,7 @@ gulp.task('copy-dist', function() {
 //         log: gutil.log
 //     });
 // }
-// function getFtpFilesToUpload(cfgFtp) {
-//     //var localFilesGlob = [ "./**/*" ];
-//     var localFilesGlob = [
-//         '*',
-//         '.htaccess',
-//         '!app_offline.htm',
-//         'contactos/**',
-//         'clientes/**',
-//         'css/**',
-//         '!design',
-//         'favicon/**',
-//         'img/**',
-//         'js/**',
-//         '!less',
-//         'mail/**',
-//         '!node_modules',
-//         'proyectos/**',
-//         'sections/**',
-//         'seo/**',
-//         'servicios/**',
-//         'sobre-nosotros/**',
-//         'vendor/**',
-//         '!.gitignore',
-//         '!config*.json',
-//         '!package*.json',
-//         '!gulpfile.js',
-//         '!license',
-//         '!readme*',
-//         '!settings.js'
-//         //'!web.config'
-//     ];
-//     return localFilesGlob;
-// }
-
+// 
 // /**
 //  * Deploy task.
 //  * Copies the new files to the server
@@ -226,9 +215,9 @@ gulp.task('copy-dist', function() {
 //     var cfgFtp = cfg.ftp; //(cfg||{}).ftp||((cfg||{}).ftp||[])[0]||{};
 //     // 
 //     var conn = getFtpConnection(cfgFtp);
-//     var localFilesGlob = getFtpFilesToUpload(cfgFtp);
+//     var localFiles = getFilesToUpload(cfgFtp);
 //     // 
-//     return gulp.src(localFilesGlob, { base: '.', buffer: false })
+//     return gulp.src(localFiles, { base: '.', buffer: false })
 //         .pipe( conn.newer( cfgFtp.remoteFolder ) ) // only upload newer files 
 //         .pipe( conn.dest( cfgFtp.remoteFolder ) )
 //     ;
@@ -245,9 +234,9 @@ gulp.task('copy-dist', function() {
 //     var cfgFtp = cfg.ftp; //(cfg||{}).ftp||((cfg||{}).ftp||[])[0]||{};
 //     // 
 //     var conn = getFtpConnection(cfgFtp);
-//     var localFilesGlob = getFtpFilesToUpload(cfgFtp);
+//     var localFiles = getFilesToUpload(cfgFtp);
 //     // 
-//     return gulp.watch(localFilesGlob)
+//     return gulp.watch(localFiles)
 //       .on('change', function(event) {
 //         console.log('Changes detected! Uploading file "' + event.path + '", ' + event.type);
 //         // 
