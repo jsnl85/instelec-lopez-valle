@@ -1,7 +1,7 @@
 /*!
- * Start Bootstrap - Creative v3.3.7+1 (http://startbootstrap.com/template-overviews/creative)
- * Copyright 2013-2017 Start Bootstrap
- * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
+ * Start Bootstrap - insteleclopezvalle.ltd website v1.0.0 (http://insteleclopezvalle.ltd)
+ * Copyright 2013-2020 Joao Lopes
+ * Licensed under  ()
  */
 html,
 body {
@@ -73,7 +73,7 @@ p {
   background-size: cover;
   -o-background-size: cover;
   background-position: center;
-  background-image: url('../img/customer-min.jpg');
+  background-image: url('../img/customer.jpg');
   text-align: center;
   color: #d0191e;
 }
@@ -117,7 +117,7 @@ aside {
   position: relative;
   width: 100%;
   min-height: auto;
-  background-image: url('../img/logo-min.jpg');
+  background-image: url('../img/logo.jpg');
   -webkit-background-size: cover;
   -moz-background-size: cover;
   background-size: cover;
@@ -290,7 +290,7 @@ header {
   background-size: cover;
   -o-background-size: cover;
   background-position: center;
-  background-image: url('../img/header-min.jpg');
+  background-image: url('../img/header.jpg');
   text-align: center;
   color: #d0191e;
 }
@@ -676,9 +676,9 @@ footer h2 {
   color: white !important;
   border-radius: 0 !important;
   background-color: #EF4035 !important;
-  -webkit-transition: all .5s;
-  -moz-transition: all .5s;
-  transition: all .5s;
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  transition: all 0.5s;
 }
 .owl-carousel.owl-theme .owl-controls .owl-prev:hover,
 .owl-carousel.owl-theme .owl-controls .owl-next:hover {
